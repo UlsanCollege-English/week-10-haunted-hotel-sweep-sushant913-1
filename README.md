@@ -1,110 +1,91 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/I7NCKCh8)
 # Week 10 Coding #8: Haunted Hotel Sweep
 
 ## Summary
 
-Write 3–6 lines explaining what this assignment does.
-
-Mention:
-
-- what the graph represents
-- what BFS does
-- what DFS does
-- why `visited` matters
+This assignment uses a graph to represent a haunted hotel where each area is a node and hallways or doors are edges. The program includes helper functions to explore the hotel safely using graph traversal algorithms. BFS (Breadth-First Search) explores nearby rooms level by level using a queue, while DFS (Depth-First Search) explores deeply through one path at a time using a stack. A `visited` set is important because it prevents infinite loops in graphs that contain cycles and stops the program from revisiting the same area repeatedly.
 
 ---
 
 ## Approach
 
-Explain your approach in bullets.
-
-Example prompts:
-
-- How did you get neighbors safely?
-- How did you check whether a path exists?
-- How did your BFS use a queue?
-- How did your DFS use a stack?
-- How did you prevent repeated visits?
+- Used `graph.get(area, [])` in `get_neighbors` to safely return neighbors or an empty list if the area does not exist.
+- Used BFS traversal with a queue in `has_path` to check whether a target area can be reached from the start area.
+- Used a `visited` set in every traversal function to avoid revisiting areas and getting stuck in cycles.
+- Implemented `bfs_order` using `collections.deque` for efficient queue operations.
+- Implemented `dfs_order` using a stack and `reversed()` neighbor traversal so DFS follows the required neighbor order.
+- Implemented `count_reachable_areas` using BFS traversal to count all unique reachable areas.
 
 ---
 
 ## Complexity
 
-Fill this in with time and space complexity.
-
 ### `get_neighbors`
 
-- Time:
-- Space:
-- Why:
+- Time: O(1) average
+- Space: O(1)
+- Why: Dictionary lookup is constant time on average and no extra data structures are created.
 
 ### `has_path`
 
-- Time:
-- Space:
-- Why:
+- Time: O(V + E)
+- Space: O(V)
+- Why: In the worst case, every area (vertex) and hallway (edge) is visited once. The queue and visited set can store up to all vertices.
 
 ### `bfs_order`
 
-- Time:
-- Space:
-- Why:
+- Time: O(V + E)
+- Space: O(V)
+- Why: BFS visits each vertex and edge once. The queue and visited set may contain all vertices.
 
 ### `dfs_order`
 
-- Time:
-- Space:
-- Why:
+- Time: O(V + E)
+- Space: O(V)
+- Why: DFS visits each vertex and edge once. The stack and visited set may contain all vertices.
 
-### Stretch: `count_reachable_areas` if completed
+### Stretch: `count_reachable_areas`
 
-- Time:
-- Space:
-- Why:
+- Time: O(V + E)
+- Space: O(V)
+- Why: The traversal may visit every vertex and edge once, while the visited set stores reachable vertices.
 
 ---
 
 ## Edge-Case Checklist
 
-Check the cases your code handles.
+- [x] empty graph
+- [x] missing start area
+- [x] missing target area
+- [x] `start == target`
+- [x] graph with a cycle
+- [x] disconnected graph
+- [x] area with no neighbors
 
-- [ ] empty graph
-- [ ] missing start area
-- [ ] missing target area
-- [ ] `start == target`
-- [ ] graph with a cycle
-- [ ] disconnected graph
-- [ ] area with no neighbors
+### Notes
 
-Add notes about any edge cases that were tricky.
+One tricky edge case was handling graphs with cycles. Without a `visited` set, the traversal could loop forever between connected areas. Another important case was making sure functions return empty results when the start area does not exist.
 
 ---
 
 ## Tests Added
 
-List any tests you added or changed.
-
-- 
-- 
-- 
+- Added cycle graph tests for BFS and DFS
+- Added isolated area tests for traversal functions
+- Added disconnected component tests
+- Added empty graph tests
+- Added reachable area count tests
 
 ---
 
 ## Known Limitations
 
-Write any limitations or unfinished parts here.
-
-If everything is complete, write:
-
-```text
 No known limitations.
-```
 
 ---
 
 ## Assistance & Sources
 
-AI used? Y/N
+AI used? Yes
 
 If yes, explain what it helped with:
 
@@ -112,8 +93,9 @@ If yes, explain what it helped with:
 - debugging
 - test ideas
 - syntax reminders
-- other:
+- README formatting
 
 Other sources used:
 
-- 
+- Python documentation for `collections.deque`
+- Course notes and lecture examples
